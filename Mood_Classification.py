@@ -32,3 +32,11 @@ def tokenize(text):
     return tokens
 fullCorpus['body_text_tokenized'] = fullCorpus['body_text_clean'].apply(lambda x: tokenize(x.lower()))
 fullCorpus.head()
+
+# stop word
+stopword = nltk.corpus.stopwords.words('english')
+def remove_stopwords(tokenized_list):
+    text = [word for word in tokenized_list if word not in stopword]
+    return text
+fullCorpus['body_text_nostop'] = fullCorpus['body_text_tokenized'].apply(lambda x: remove_stopwords(x))
+fullCorpus.head()
