@@ -25,3 +25,10 @@ def remove_punct(text):
     return text_nopunct
 fullCorpus['body_text_clean'] = fullCorpus['body_text'].apply(lambda x: remove_punct(x))
 fullCorpus.head(25)
+
+# tokenization
+def tokenize(text):
+    tokens = re.split('\W+', text)
+    return tokens
+fullCorpus['body_text_tokenized'] = fullCorpus['body_text_clean'].apply(lambda x: tokenize(x.lower()))
+fullCorpus.head()
