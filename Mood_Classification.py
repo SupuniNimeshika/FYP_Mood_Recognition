@@ -31,6 +31,15 @@ def remove_punct(text):
 fullCorpus['body_text_clean'] = fullCorpus['body_text'].apply(lambda x: remove_punct(x))
 fullCorpus.head(25)
 
+# print seperate file for remove punctuation output
+print('----------------------------Print in the punctuation.txt-----------------------------------------')
+file = open('punctuation.txt', 'w')
+punctuationed = fullCorpus['body_text_clean']
+for index, val in punctuationed.iteritems():
+    line = str(index)+'\t'+str(val)
+    file.write(line+'\n')
+file.close()
+
 
 # tokenization
 def tokenize(text):
@@ -38,6 +47,15 @@ def tokenize(text):
     return tokens
 fullCorpus['body_text_tokenized'] = fullCorpus['body_text_clean'].apply(lambda x: tokenize(x.lower()))
 fullCorpus.head()
+
+# print seperate file for tokenize output
+print('----------------------------Print in the tokenize.txt-----------------------------------------')
+file = open('tokenize.txt', 'w')
+tokenized = fullCorpus['body_text_tokenized']
+for index, val in tokenized.iteritems():
+    line = str(index)+'\t'+str(val)
+    file.write(line+'\n')
+file.close()
 
 
 # stop word
@@ -47,6 +65,16 @@ def remove_stopwords(tokenized_list):
     return text
 fullCorpus['body_text_nostop'] = fullCorpus['body_text_tokenized'].apply(lambda x: remove_stopwords(x))
 fullCorpus.head()
+
+# print seperate file for remove stop word output
+print('----------------------------Print in the nonstop.txt-----------------------------------------')
+file = open('nostop.txt', 'w')
+nostoped = fullCorpus['body_text_nostop']
+for index, val in nostoped.iteritems():
+    line = str(index)+'\t'+str(val)
+    file.write(line+'\n')
+file.close()
+
 
 #lemmatizing
 wn = nltk.WordNetLemmatizer()
@@ -63,12 +91,21 @@ def data_lematization():
     fullCorpus['body_text_lemmatized'] = fullCorpus['body_text_lemmatized'].apply(lambda x: join_text(x))
 data_lematization()
 
+# print seperate file for lematization output
+print('----------------------------Print in the cleaned.txt-----------------------------------------')
+file = open('cleaned.txt', 'w')
+cleaned=fullCorpus['body_text_lemmatized']
+for index, val in cleaned.iteritems():
+    line = str(index)+'\t'+val
+    file.write(line+'\n')
+file.close()
+
 
 # separate training and testing data
-trainData = fullCorpus['body_text_lemmatized'][:310]
-testData = fullCorpus['body_text_lemmatized'][310:]
-train_labels = fullCorpus['label'][:310]
-test_labels = fullCorpus['label'][310:]
+trainData = fullCorpus['body_text_lemmatized'][:350]
+testData = fullCorpus['body_text_lemmatized'][350:]
+train_labels = fullCorpus['label'][:350]
+test_labels = fullCorpus['label'][350:]
 
 # print train data and test data
 print("Train data count:\n", train_labels.value_counts())
