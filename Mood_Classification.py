@@ -154,8 +154,8 @@ t_model = MultinomialNB().fit(transformer_trigrams,train_labels)
 f_model = MultinomialNB().fit(transformer_full,train_labels)
 
 
-# sample for testing spam classifier
-test_sample = ['Sorry, ..use your brain dear','SIX chances to win CASH']
+# sample for testing comment
+test_sample = ['Missing you DAD','After reading the story tears came out of my eyes']
 
 #Unigram probability counting
 uni_test_CountVectorized = unigram_vectorized.transform(test_sample)
